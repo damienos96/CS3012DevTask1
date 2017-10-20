@@ -75,24 +75,15 @@ public class DevTask1Test {
 	}
 	
 	@Test
-	public void testFloor()
-	{
-		DevTask1<Integer, Integer> bst = new DevTask1<Integer, Integer>();
-		
-		bst.put(7, 7);
-	    bst.put(8, 8);
-	    bst.put(3, 3);
-	    
-	}
-	
-	@Test
 	public void testLowestCommonAncestor()
 	{
 		DevTask1<Integer, Integer> bst = new DevTask1<Integer, Integer>();
-		
 		bst.put(7, 7);
 	    bst.put(8, 8);
 	    bst.put(3, 3);
-	    
+	    bst.put(1, 1);
+        bst.put(2, 2);
+        bst.put(6, 6);
+        assertEquals("Checking the lowestCommonAncestor of a non-empty tree", 7, (int)bst.lowestCommonAncestor(2, 1));
 	}
 }
