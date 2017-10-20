@@ -66,11 +66,12 @@ public class DevTask1Test {
 	public void testDelete()
 	{
 		DevTask1<Integer, Integer> bst = new DevTask1<Integer, Integer>();
-		
 		bst.put(7, 7);
 	    bst.put(8, 8);
 	    bst.put(3, 3);
-	    
+	    assertEquals("Checking if key 3 is present", true, bst.contains(3));
+	    bst.delete(3);
+	    assertEquals("Checking if key 3 was deleted", false, bst.contains(3));
 	}
 	
 	@Test
