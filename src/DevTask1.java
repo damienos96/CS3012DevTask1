@@ -143,39 +143,75 @@ public class DevTask1<Key extends Comparable<Key>, Value> {
      * @param key the key to delete
      */
     public void delete(Key key) {
-    	if(key != null)
+        if (isEmpty() || !contains(key))
+        {
+      	  return;
+        }
+        else
+        {
+        	root = delete(key, root);
+        }
+    }
+      
+    private Node delete(Key key, Node x) 
+    {
+    	int cmp = key.compareTo(x.key);
+    	if (cmp < 0) 
+    		x.left = delete(key, x.left);
+    	else if (cmp > 0) 
+    		x.right = delete(key, x.right);
+    	else 
     	{
-    		root = delete(root, key);
+    		if (x.left == null)
+    		{
+    			return x.right;
+    		}
+    		if (x.right == null)
+    		{
+    			return x.left;
+    		}
+    			 
+    		Node t = x;
+    		x = floor(t.left, x.key);
+    		x.left = deleteMax(t.left);
+    		x.right = t.right;
     	}
+    	x.N = size(x.left) + size(x.right) + 1;
+    	return x;
     }
     
-    private Node delete(Node node, Key key) {
-    	if(node == null)
+    private Node deleteMax(Node x)
+    {
+    	if (x.right == null)
     	{
+    		return x.left;
+    	}
+    	x.right = deleteMax(x.right);
+    	x.N = 1 + size(x.left) + size(x.right);
+    	return x;
+    }
+
+    public Node floor (Key key)
+    {
+    	return floor(root, key);
+    }
+    
+    private Node floor(Node x, Key key)
+    {
+    	if (x == null) 
     		return null;
+    	int cmp = key.compareTo(x.key);
+    	if (cmp == 0) 
+    		return x;
+    	if (cmp < 0) 
+    		return floor(x.left, key);
+    	else {
+    		Node t = floor(x.right, key);
+    		if (t != null) 
+    			return t;
+    		else 
+    			return x;
     	}
-    	if(key.compareTo(node.key) < 0)
-    	{
-    		node.left = delete(node.left, key);
-    	}
-    	else if(key.compareTo(node.key) > 0)
-    	{
-    		node.right = delete(node.right, key);
-    	}
-    	else
-    	{
-    		if(node.right == null)
-    		{
-    			return node.left;
-    		}
-    		if(node.left == null)
-    		{
-    			return node.right;
-    		}
-    		Node tmp = node;
-    		//finish
-    	}
-    	return null;
     }
     
     public Node lowestCommonAncestor(Node p, Node q) {
@@ -183,7 +219,11 @@ public class DevTask1<Key extends Comparable<Key>, Value> {
         {
         	return null;
         }
-        if(this.root==p || root==q)
+        /*if(this.root==p || root==q)
+        {
+        	return this.root;
+        }*/
+        if(this.root.key.compareTo(p.key) == 0 || this.root.key.compareTo(q.key) == 0)
         {
         	return this.root;
         }
