@@ -178,20 +178,20 @@ public class DevTask1<Key extends Comparable<Key>, Value> {
     	return null;
     }
     
-    public Node lowestCommonAncestor(Node root, Node p, Node q) {
-        if(root==null)
+    public Node lowestCommonAncestor(Node p, Node q) {
+        if(this.root==null)
         {
         	return null;
         }
-        if(root==p || root==q)
+        if(this.root==p || root==q)
         {
-        	return root;
+        	return this.root;
         }
-        Node l = lowestCommonAncestor(root.left, p, q);
-        Node r = lowestCommonAncestor(root.right, p, q);
+        Node l = lowestCommonAncestor(p, q);
+        Node r = lowestCommonAncestor(p, q);
         if(l != null && r != null)
         {
-            return root;
+            return this.root;
         }
         else if(l == null && r == null)
         {
