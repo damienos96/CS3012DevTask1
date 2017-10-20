@@ -133,4 +133,49 @@ public class DevTask1<Key extends Comparable<Key>, Value> {
     		return 1 + heightOfRightNode;
     	}
     }
+    
+    /**
+     * Deletes a key from a tree (if the key is in the tree).
+     * Note that this method works symmetrically from the Hibbard deletion:
+     * If the node to be deleted has two child nodes, then it needs to be
+     * replaced with its predecessor (not its successor) node.
+     *
+     * @param key the key to delete
+     */
+    public void delete(Key key) {
+    	if(key != null)
+    	{
+    		root = delete(root, key);
+    	}
+    }
+    
+    private Node delete(Node node, Key key) {
+    	if(node == null)
+    	{
+    		return null;
+    	}
+    	if(key.compareTo(node.key) < 0)
+    	{
+    		node.left = delete(node.left, key);
+    	}
+    	else if(key.compareTo(node.key) > 0)
+    	{
+    		node.right = delete(node.right, key);
+    	}
+    	else
+    	{
+    		if(node.right == null)
+    		{
+    			return node.left;
+    		}
+    		if(node.left == null)
+    		{
+    			return node.right;
+    		}
+    		Node tmp = node;
+    		//finish
+    	}
+    	return null;
+    }
+    
 }
