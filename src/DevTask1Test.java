@@ -41,22 +41,25 @@ public class DevTask1Test {
 	public void testSize()
 	{
 		DevTask1<Integer, Integer> bst = new DevTask1<Integer, Integer>();
-		
+		assertEquals("Checking the size() function for an empty tree", 0, bst.size());
 		bst.put(7, 7);
 	    bst.put(8, 8);
 	    bst.put(3, 3);
-	    
+	    assertEquals("Checking the size() function for a non-empty tree", 3, bst.size());
 	}
 	
 	@Test
 	public void testContains()
 	{
 		DevTask1<Integer, Integer> bst = new DevTask1<Integer, Integer>();
-		
+		assertEquals("Checking the contains() function for an empty tree", false, bst.contains(5));
 		bst.put(7, 7);
 	    bst.put(8, 8);
 	    bst.put(3, 3);
-	    
+	    assertEquals("Checking the contains() function for a non-empty tree", true, bst.contains(7));
+	    assertEquals("Checking the contains() function for a non-empty tree", false, bst.contains(1));
+	    assertEquals("Checking the contains() function for a non-empty tree", true, bst.contains(8));
+	    assertEquals("Checking the contains() function for a non-empty tree", true, bst.contains(3));
 	}
 	
 	@Test
