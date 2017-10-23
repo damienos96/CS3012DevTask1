@@ -216,22 +216,23 @@ public class DevTask1<Key extends Comparable<Key>, Value> {
     
     public Key lowestCommonAncestor(Key p, Key q)
     {
-    	return lowestCommonAncestor(root, p, q).key;
+    	return lowestCommonAncestor(this.root, p, q).key;
     }
     
-    Node lowestCommonAncestor(Node node, int n1, int n2) 
+    Node lowestCommonAncestor(Node node, Key n1, Key n2) 
     {
         if (node == null)
         {
         	return null;
         }
-        if (node.key > n1 && node.key > n2)
+        if(node.key.compareTo(n1) > 0 && node.key.compareTo(n2) > 0)
         {
-        	return lca(node.left, n1, n2);
+        	return lowestCommonAncestor(node.left, n1, n2);
         }
-        if (node.data < n1 && node.data < n2) 
-            return lowestCommonAncestor(node.right, n1, n2);
-  
+        if(node.key.compareTo(n1) < 0 && node.key.compareTo(n2) < 0)
+        {
+        	return lowestCommonAncestor(node.right, n1, n2);
+        }
         return node;
     }
 }
