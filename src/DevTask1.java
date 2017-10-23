@@ -219,37 +219,19 @@ public class DevTask1<Key extends Comparable<Key>, Value> {
     	return lowestCommonAncestor(root, p, q).key;
     }
     
-    private Node lowestCommonAncestor(Node tmpRoot, Key p, Key q) {
-    	
-    	
-        if(tmpRoot==null)
+    Node lowestCommonAncestor(Node node, int n1, int n2) 
+    {
+        if (node == null)
         {
         	return null;
         }
-        if(tmpRoot.key.compareTo(p) == 0 || tmpRoot.key.compareTo(q) == 0)
+        if (node.key > n1 && node.key > n2)
         {
-        	return this.root;
+        	return lca(node.left, n1, n2);
         }
-        Node l = lowestCommonAncestor(tmpRoot, p, q);
-        Node r = lowestCommonAncestor(tmpRoot, p, q);
-        if(l != null && r != null)
-        {
-            return this.root;
-        }
-        else if(l == null && r == null)
-        {
-            return null;
-        }
-        else
-        {
-        	if(l == null)
-        	{
-        		return r;
-        	}
-        	else
-        	{
-        		return l;
-        	}
-        }
+        if (node.data < n1 && node.data < n2) 
+            return lowestCommonAncestor(node.right, n1, n2);
+  
+        return node;
     }
 }

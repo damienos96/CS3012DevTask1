@@ -84,6 +84,6 @@ public class DevTask1Test {
 	    bst.put(1, 1);
         bst.put(2, 2);
         bst.put(6, 6);
-        assertEquals("Checking the lowestCommonAncestor of a non-empty tree", 7, (int)bst.lowestCommonAncestor(2, 1));
+        assertEquals("Checking the lowestCommonAncestor of a non-empty tree", 6, (int)bst.lowestCommonAncestor(2, 1));
 	}
 }
