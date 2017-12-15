@@ -50,6 +50,8 @@ public class DevTask3 {
 		final CommitService service = new CommitService();
 		int pages = 1;
 		int totalCommits = 0;
+		int commitsOnDay = 0;
+		Date prevDate = new Date(0);
 		for (Collection<RepositoryCommit> commits : service.pageCommits(repo,size))
 		{
 			totalCommits += commits.size();
@@ -58,7 +60,25 @@ public class DevTask3 {
 				String sha = commit.getSha().substring(0, 7);
 				String author = commit.getCommit().getAuthor().getName();
 				Date date = commit.getCommit().getAuthor().getDate();
-				printToFile(date);
+				String msgFrmt = "{0}";
+				String arg1 = MessageFormat.format(msgFrmt, date).substring(0,2);
+				String arg2 = MessageFormat.format(msgFrmt, prevDate).substring(0,2);
+				String arg3 = date.toString().substring(4,7);
+				String arg4 = prevDate.toString().substring(4,7);
+				String arg5 = MessageFormat.format(msgFrmt, date).substring(6,8);
+				String arg6 = MessageFormat.format(msgFrmt, prevDate).substring(6,8);
+				if(!( (arg1).equals(arg2) && arg3.equals(arg4) && arg5.equals(arg6) ))
+				{
+					printToFile(prevDate, commitsOnDay);
+					prevDate = date;
+					commitsOnDay = 1;
+				}
+				else
+				{
+					commitsOnDay++;
+				}
+				
+				//printToFile(date, commitsOnDay);
 				String comment = commit.getCommit().getMessage();
 				System.out.println(MessageFormat.format(message, sha, author, date, comment));
 			}
@@ -83,13 +103,18 @@ public class DevTask3 {
 		  System.out.println(repo.getName() + " Watchers: " + repo.getWatchers());
 	}
 	
-	public static void printToFile(Date date) throws IOException
+	public static void printToFile(Date date, int commits) throws IOException
 	{
-		String fileName = "C:/Eclipse/CS3012 Development Task 1/src/data.tsv";
-		FileWriter write = new FileWriter(fileName, true);
-		PrintWriter printLine = new PrintWriter(write);
-		String output = "{0}";
-		printLine.print((MessageFormat.format(output, date)).substring(0,3)+ date.toString().substring(4, 7)+ (MessageFormat.format(output, date)).substring(5,8) + "\n");
-		printLine.close();
+		if(!date.equals(new Date(0)))
+		{
+			String fileName = "C:/Eclipse/CS3012 Development Task 1/src/data.tsv";
+			FileWriter write = new FileWriter(fileName, true);
+			PrintWriter printLine = new PrintWriter(write);
+			String output = "{0}";
+			printLine.print((MessageFormat.format(output, date)).substring(0,3)+ date.toString().substring(4, 7)+ (MessageFormat.format(output, date)).substring(5,8) + " ");
+			printLine.print(commits + "\n");
+			printLine.close();
+		}
+		
 	}
 }
