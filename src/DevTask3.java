@@ -8,6 +8,7 @@ import java.util.Date;
 
 import org.eclipse.egit.github.core.RepositoryCommit;
 import org.eclipse.egit.github.core.RepositoryId;
+import org.eclipse.egit.github.core.client.GitHubClient;
 import org.eclipse.egit.github.core.service.CommitService;
 import org.eclipse.egit.github.core.Repository;
 import org.eclipse.egit.github.core.service.RepositoryService;
@@ -15,12 +16,17 @@ import org.eclipse.egit.github.core.service.RepositoryService;
 public class DevTask3 {
 
 	public static void main(String[] args) throws IOException{
-		//PageCommits();
-		PrintRepos();
+		//pageCommits();
+		//printRepos();
+		//Basic authentication
+		/*
+		GitHubClient client = new GitHubClient();
+		client.setCredentials("damienos96", "WroC!aW96");*/
+		printWatchers();
 	}
 	
 	
-	public static void PageCommits()
+	/*public static void pageCommits()
 	{
 		final int size = 25;
 		final RepositoryId repo = new RepositoryId("github", "hubot");
@@ -38,9 +44,9 @@ public class DevTask3 {
 						date));
 			}
 		}
-	}
+	}*/
 	
-	public static void PrintRepos() throws IOException
+	/*public static void printRepos() throws IOException
 	{
 		final String user = "defunkt";
 		final String format = "{0}) {1}- created on {2}";
@@ -49,5 +55,12 @@ public class DevTask3 {
 		for (Repository repo : service.getRepositories(user))
 			System.out.println(MessageFormat.format(format, count++,
 					repo.getName(), repo.getCreatedAt()));
+	}*/
+	
+	public static void printWatchers() throws IOException
+	{
+		RepositoryService service = new RepositoryService();
+		for (Repository repo : service.getRepositories("damienos96"))
+		  System.out.println(repo.getName() + " Watchers: " + repo.getWatchers());
 	}
 }
