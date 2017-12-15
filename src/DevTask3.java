@@ -89,7 +89,7 @@ public class DevTask3 {
 		FileWriter write = new FileWriter(fileName, true);
 		PrintWriter printLine = new PrintWriter(write);
 		String output = "{0}";
-		printLine.print((MessageFormat.format(output, date)).substring(0,8) + "\n");
+		printLine.print((MessageFormat.format(output, date)).substring(0,3)+ date.toString().substring(4, 7)+ (MessageFormat.format(output, date)).substring(5,8) + "\n");
 		printLine.close();
 	}
 }
