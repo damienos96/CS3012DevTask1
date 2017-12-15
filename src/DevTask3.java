@@ -35,7 +35,7 @@ public class DevTask3 {
 		System.out.println("Page commits for " + user);
 		final int size = 25;
 		RepositoryId repo = new RepositoryId(user, rep);
-		final String message = "   {0} by {1} on {2}";
+		final String message = "   {0} by {1} on {2} {3}";
 		final CommitService service = new CommitService();
 		int pages = 1;
 		int totalCommits = 0;
@@ -47,7 +47,8 @@ public class DevTask3 {
 				String sha = commit.getSha().substring(0, 7);
 				String author = commit.getCommit().getAuthor().getName();
 				Date date = commit.getCommit().getAuthor().getDate();
-				System.out.println(MessageFormat.format(message, sha, author, date));
+				String comment = commit.getCommit().getMessage();
+				System.out.println(MessageFormat.format(message, sha, author, date, comment));
 			}
 		}
 		System.out.println("Total number of commits " + totalCommits);
