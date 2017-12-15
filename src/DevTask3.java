@@ -1,5 +1,8 @@
 //Author: Damian Debny
 //Student No. 15315535
+//The libraries used in this program:
+// https://github.com/eclipse/egit-github
+// https://github.com/google/gson
 
 import java.io.IOException;
 import java.text.MessageFormat;
