@@ -5,6 +5,8 @@
 // https://github.com/google/gson
 
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.FileWriter;
 import java.text.MessageFormat;
 import java.util.Collection;
 import java.util.Date;
@@ -20,6 +22,12 @@ import org.eclipse.egit.github.core.service.RepositoryService;
 public class DevTask3 {
 
 	public static void main(String[] args) throws IOException{
+		String fileName = "C:/Eclipse/CS3012 Development Task 1/src/data.tsv";
+		FileWriter write = new FileWriter(fileName, false);
+		PrintWriter printLine = new PrintWriter(write);
+		printLine.print("date close\n");
+		printLine.close();
+		
 		System.out.println("Enter the name of a Github user: ");
 		Scanner input = new Scanner(System.in);
 		String user = input.nextLine();
@@ -33,7 +41,7 @@ public class DevTask3 {
 	}
 	
 	
-	public static void pageCommits(String user, String rep)
+	public static void pageCommits(String user, String rep) throws IOException
 	{
 		System.out.println("Page commits for " + user);
 		final int size = 25;
@@ -50,6 +58,7 @@ public class DevTask3 {
 				String sha = commit.getSha().substring(0, 7);
 				String author = commit.getCommit().getAuthor().getName();
 				Date date = commit.getCommit().getAuthor().getDate();
+				printToFile(date);
 				String comment = commit.getCommit().getMessage();
 				System.out.println(MessageFormat.format(message, sha, author, date, comment));
 			}
@@ -72,5 +81,15 @@ public class DevTask3 {
 		RepositoryService service = new RepositoryService();
 		for (Repository repo : service.getRepositories("awarde96"))
 		  System.out.println(repo.getName() + " Watchers: " + repo.getWatchers());
+	}
+	
+	public static void printToFile(Date date) throws IOException
+	{
+		String fileName = "C:/Eclipse/CS3012 Development Task 1/src/data.tsv";
+		FileWriter write = new FileWriter(fileName, true);
+		PrintWriter printLine = new PrintWriter(write);
+		String output = "{0}";
+		printLine.print((MessageFormat.format(output, date)).substring(0,8) + "\n");
+		printLine.close();
 	}
 }
