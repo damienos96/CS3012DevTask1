@@ -22,10 +22,11 @@ import org.eclipse.egit.github.core.service.RepositoryService;
 public class DevTask3 {
 
 	public static void main(String[] args) throws IOException{
+		//Runtime.getRuntime().exec("cmd py -m http.server");
 		String fileName = "C:/Eclipse/CS3012 Development Task 1/src/data.tsv";
 		FileWriter write = new FileWriter(fileName, false);
 		PrintWriter printLine = new PrintWriter(write);
-		printLine.print("date close\n");
+		printLine.print("date	close\n");
 		printLine.close();
 		
 		System.out.println("Enter the name of a Github user: ");
@@ -35,6 +36,18 @@ public class DevTask3 {
 		System.out.println("Enter the name of one of the given repositories: ");
 		String repo = input.nextLine();
 		pageCommits(user, repo);
+		
+		/*boolean f = true;
+		while(f)
+		{
+			System.out.println("Type 'exit' to finish program");
+			String inp = input.nextLine();
+			if(inp.equals("exit"))
+			{
+				f = false;
+				Runtime.getRuntime().exec("^C /c");
+			}
+		}*/
 		
 		//printWatchers();
 		input.close();
@@ -111,7 +124,7 @@ public class DevTask3 {
 			FileWriter write = new FileWriter(fileName, true);
 			PrintWriter printLine = new PrintWriter(write);
 			String output = "{0}";
-			printLine.print((MessageFormat.format(output, date)).substring(0,3)+ date.toString().substring(4, 7)+ (MessageFormat.format(output, date)).substring(5,8) + " ");
+			printLine.print((MessageFormat.format(output, date)).substring(0,3)+ date.toString().substring(4, 7)+ (MessageFormat.format(output, date)).substring(5,8) + "	");
 			printLine.print(commits + "\n");
 			printLine.close();
 		}
